@@ -20,14 +20,14 @@ med-indication-project/
 | `web-frontend`     | React   | Frontend for drug search, program visualization (optional) |
 
 ## Planned Features
-- [ ] Scrape or parse DailyMed drug labels for Dupixent. Extract relevant sections describing indications.
-- [ ] Parse the MyWay Copay Card. Extract structured information. Infer missing details using rule-based transformations or generative AI. Standardize the format according to the example output included in this
+- [x] Scrape or parse DailyMed drug labels for Dupixent. Extract relevant sections describing indications.
+- [x] Parse the MyWay Copay Card. Extract structured information. Infer missing details using rule-based transformations or generative AI. Standardize the format according to the example output included in this
 document
 - [ ] Map extracted indications to ICD-10 codes using an open-source dataset.
 - [ ] Handle edge cases like: synonyms, drugs with multiple indications, and unmappable conditions.
 - [ ] Use generative AI to parse and summarize the EligibilityDetails text field into structured
 requirements
-- [ ] Convert free-text eligibility conditions into structured JSON key-value pairs.
+- [x] Convert free-text eligibility conditions into structured JSON key-value pairs.
 - [ ] Store structured drug-indication mappings in a database or NoSQL store.
 - [ ] Make mappings queryable via an API.
 - [ ] Implement CRUD operations: Create, read, update, and delete drug-indication mappings.

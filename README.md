@@ -15,7 +15,7 @@ med-indication-project/
 
 | Service           | Language | Responsibilities                                        |
 |------------------|----------|----------------------------------------------------------|
-| `drug-service-py` | Python   | Parse drug labels, map indications, extract eligibility  |
+| `med-service-py` | Python   | Parse drug labels, map indications, extract eligibility  |
 | `api-gateway-node` | Node.js | API access, authentication, RBAC, CRUD on mappings      |
 | `web-frontend`     | React   | Frontend for drug search, program visualization (optional) |
 

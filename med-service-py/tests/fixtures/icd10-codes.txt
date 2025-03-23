@@ -1,0 +1,4 @@
+Z98891  History of uterine scar from previous surgery
+Z990    Dependence on aspirator
+Z9911   Dependence on respirator [ventilator] status
+Z9912   Encounter for respirator [ventilator] dependence during power failure

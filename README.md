@@ -32,7 +32,7 @@ requirements
 - [x] Make mappings queryable via an API.
 - [x] Implement CRUD operations: Create, read, update, and delete drug-indication mappings.
 - [x] Users should be able to register and log in
-- [ ] Implement role-based access control.
+- [x] Implement role-based access control.
 - [ ] Include Swagger or Postman workspace for API testing
 - [ ] Ensure consistent data types (e.g., true/false, numbers as strings).
 - [ ] Implement validation rules for missing or ambiguous data.

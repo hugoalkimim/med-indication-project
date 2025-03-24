@@ -7,11 +7,27 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { MappingsModule } from './mappings/mappings.module';
 import { ProgramsModule } from './programs/programs.module';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 60000,
+          limit: 30,
+        },
+      ],
+    }),
+    CacheModule.register({
+      isGlobal: true,
+      ttl: 10 * 60 * 1000, // 10 minutes
+    }),
     ConfigModule.forRoot({ isGlobal: true }),
-    MongooseModule.forRoot(process.env.MONGO_URI || 'mongodb://mongo:27017/med-indications'),
+    MongooseModule.forRoot(
+      process.env.MONGO_URI || 'mongodb://mongo:27017/med-indications',
+    ),
     AuthModule,
     UsersModule,
     MappingsModule,

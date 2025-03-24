@@ -8,11 +8,19 @@ MONGO_DB = os.getenv("MONGO_DB", "med-indications")
 client = MongoClient(MONGO_URI)
 db = client[MONGO_DB]
 
-drug_mappings = db["drug_mappings"]
+med_mappings = db["mappings"]
+copay_programs = db["programs"]
 
 def insert_mapping(document: dict):
     """
     Inserts a new drug mapping document into MongoDB.
     """
-    drug_mappings.insert_one(document)
+    med_mappings.insert_one(document)
     print(f"✅ Inserted mapping for: {document.get('drug')}")
+    
+def insert_program(document: dict):
+    """
+    Inserts a new copay program document into MongoDB.
+    """
+    copay_programs.insert_one(document)
+    print(f"✅ Inserted copay program for: {document.get('program_name')}")

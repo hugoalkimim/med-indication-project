@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import * as bcrypt from 'bcryptjs';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
@@ -13,6 +14,7 @@ export class AuthController {
   ) {}
 
   @Post('register')
+  @UseGuards(AuthGuard('jwt'))
   async register(@Body() body: { email: string, password: string, role?: 'admin' | 'user' }) {
     const hashed = await bcrypt.hash(body.password, 10);
     return this.usersService.create({ ...body, password: hashed });

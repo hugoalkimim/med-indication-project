@@ -36,8 +36,8 @@ requirements
 - [ ] Include Swagger or Postman workspace for API testing
 - [ ] Ensure consistent data types (e.g., true/false, numbers as strings).
 - [ ] Implement validation rules for missing or ambiguous data.
-- [ ] Provide an endpoint (/programs/<program_id>) returning structured JSON.
-- [ ] Supports querying program details dynamically.
+- [x] Provide an endpoint (/programs/<program_id>) returning structured JSON.
+- [x] Supports querying program details dynamically.
 - [x] Use a database (SQL or NoSQL) to store: Drug-indication mappings and User authentication data
 - [ ] Keep business rules independent of the API and data layers.
 - [ ] Implement validation logic for incoming data.

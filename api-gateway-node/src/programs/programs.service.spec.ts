@@ -70,4 +70,11 @@ describe('ProgramsService', () => {
   it('should delete a program', async () => {
     await expect(service.delete('1')).resolves.toBeUndefined();
   });
+  
+  it('should search by program name', async () => {
+    model.find = jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue([mockProgram]) });
+    const result = await service.search({ name: 'Sample Program' });
+    expect(result).toEqual([mockProgram]);
+    expect(model.find).toHaveBeenCalledWith({ program_name: 'Sample Program' });
+  });
 });

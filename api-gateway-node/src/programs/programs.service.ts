@@ -15,8 +15,21 @@ export class ProgramsService {
 
   async findById(id: string): Promise<Program> {
     const program = await this.programModel.findById(id).exec();
-    if (!program) throw new NotFoundException(`Program with id ${id} not found`);
+    if (!program)
+      throw new NotFoundException(`Program with id ${id} not found`);
     return program;
+  }
+
+  async search(query: any): Promise<Program[]> {
+    const mongoQuery = {};
+
+    if (query.name) mongoQuery['program_name'] = query.name;
+    if (query.coverage_eligibility)
+      mongoQuery['coverage_eligibilities'] = query.coverage_eligibility;
+    if (query.type) mongoQuery['program_type'] = query.type;
+    if (query.requires) mongoQuery['requirements.name'] = query.requires;
+
+    return this.programModel.find(mongoQuery).exec();
   }
 
   async create(data: Partial<Program>): Promise<Program> {
@@ -24,8 +37,11 @@ export class ProgramsService {
   }
 
   async update(id: string, update: Partial<Program>): Promise<Program> {
-    const updated = await this.programModel.findByIdAndUpdate(id, update, { new: true }).exec();
-    if (!updated) throw new NotFoundException(`Program with id ${id} not found`);
+    const updated = await this.programModel
+      .findByIdAndUpdate(id, update, { new: true })
+      .exec();
+    if (!updated)
+      throw new NotFoundException(`Program with id ${id} not found`);
     return updated;
   }
 

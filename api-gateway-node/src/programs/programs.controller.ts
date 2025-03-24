@@ -1,5 +1,5 @@
 
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, Query } from '@nestjs/common';
 import { ProgramsService } from './programs.service';
 import { Program } from './schemas/program.schema';
 
@@ -10,6 +10,11 @@ export class ProgramsController {
   @Get()
   findAll(): Promise<Program[]> {
     return this.programsService.findAll();
+  }
+  
+  @Get('search')
+  search(@Query() query: any) {
+    return this.programsService.search(query);
   }
 
   @Get(':id')

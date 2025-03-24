@@ -23,7 +23,7 @@ med-indication-project/
 - [x] Scrape or parse DailyMed drug labels for Dupixent. Extract relevant sections describing indications.
 - [x] Parse the MyWay Copay Card. Extract structured information. Infer missing details using rule-based transformations or generative AI. Standardize the format according to the example output included in this
 document
-- [ ] Map extracted indications to ICD-10 codes using an open-source dataset.
+- [x] Map extracted indications to ICD-10 codes using an open-source dataset.
 - [ ] Handle edge cases like: synonyms, drugs with multiple indications, and unmappable conditions.
 - [ ] Use generative AI to parse and summarize the EligibilityDetails text field into structured
 requirements
@@ -38,7 +38,7 @@ requirements
 - [ ] Implement validation rules for missing or ambiguous data.
 - [ ] Provide an endpoint (/programs/<program_id>) returning structured JSON.
 - [ ] Supports querying program details dynamically.
-- [ ] Use a database (SQL or NoSQL) to store: Drug-indication mappings and User authentication data
+- [x] Use a database (SQL or NoSQL) to store: Drug-indication mappings and User authentication data
 - [ ] Keep business rules independent of the API and data layers.
 - [ ] Implement validation logic for incoming data.
 

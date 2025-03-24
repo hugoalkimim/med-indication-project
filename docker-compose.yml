@@ -1,0 +1,56 @@
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  med-service-py:
+    build:
+      context: ./med-service-py
+    container_name: med-service-py
+    volumes:
+      - ./med-service-py:/app
+    depends_on:
+      - mongo
+    command: ["python", "-u", "cli/run_ingestion.py"]
+    environment:
+      - MONGO_URI=mongodb://mongo:27017
+    restart: on-failure
+
+  api-gateway-node:
+    build:
+      context: ./api-gateway-node
+    container_name: api-gateway-node
+    volumes:
+      - ./api-gateway-node:/app
+    depends_on:
+      - mongo
+    ports:
+      - "4000:4000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017
+      - JWT_SECRET=supersecretkey
+      - NODE_ENV=development
+    command: ["yarn", "start:dev"]
+    restart: on-failure
+
+  # web-frontend:
+  #   build:
+  #     context: ./web-frontend
+  #   container_name: web-frontend
+  #   volumes:
+  #     - ./web-frontend:/app
+  #   depends_on:
+  #     - api-gateway-node
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - VITE_API_BASE_URL=http://localhost:4000
+  #   command: ["npm", "run", "dev"]
+  #   restart: on-failure
+
+volumes:
+  mongo-data:

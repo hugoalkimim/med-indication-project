@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ProgramsController } from './programs.controller';
-import { ProgramsService } from './programs.service';
-import { Program } from './schemas/program.schema';
+import { ProgramsController } from '../programs.controller';
+import { ProgramsService } from '../programs.service';
+import { Program } from '../schemas/program.schema';
 
 const mockProgram: Program = {
   _id: '1',

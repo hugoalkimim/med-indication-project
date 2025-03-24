@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ProgramsService } from './programs.service';
+import { ProgramsService } from '../programs.service';
 import { getModelToken } from '@nestjs/mongoose';
-import { Program } from './schemas/program.schema';
+import { Program } from '../schemas/program.schema';
 import { Model } from 'mongoose';
 
 const mockProgram = {

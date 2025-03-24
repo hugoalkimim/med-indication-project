@@ -1,8 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MappingsController } from './mappings.controller';
-import { MappingsService } from './mappings.service';
-import { Mapping } from './schemas/mapping.schema';
+import { MappingsController } from '../mappings.controller';
+import { MappingsService } from '../mappings.service';
+import { Mapping } from '../schemas/mapping.schema';
 import { NotFoundException } from '@nestjs/common';
+import { HttpModule } from '@nestjs/axios';
 
 describe('MappingsController', () => {
   let controller: MappingsController;
@@ -29,6 +30,7 @@ describe('MappingsController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [HttpModule],
       controllers: [MappingsController],
       providers: [{ provide: MappingsService, useValue: serviceMock }],
     }).compile();

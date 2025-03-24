@@ -1,8 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MappingsService } from './mappings.service';
+import { MappingsService } from '../mappings.service';
 import { getModelToken } from '@nestjs/mongoose';
-import { Mapping } from './schemas/mapping.schema';
+import { Mapping } from '../schemas/mapping.schema';
 import { NotFoundException } from '@nestjs/common';
+import { HttpModule, HttpService } from '@nestjs/axios';
 
 describe('MappingsService', () => {
   let service: MappingsService;
@@ -26,8 +27,10 @@ describe('MappingsService', () => {
     };
 
     const module: TestingModule = await Test.createTestingModule({
+      imports: [HttpModule],
       providers: [
         MappingsService,
+        HttpService,
         {
           provide: getModelToken(Mapping.name),
           useValue: {
@@ -80,7 +83,7 @@ describe('MappingsService', () => {
       const saveMock = jest.fn().mockResolvedValueOnce(mockMapping);
       const createMock = jest.fn().mockImplementation(() => ({ save: saveMock }));
 
-      service = new MappingsService(createMock as any);
+      service = new MappingsService(createMock as any, {} as any);
 
       const result = await service.create(mockMapping);
       expect(result).toEqual(mockMapping);

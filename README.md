@@ -9,7 +9,6 @@
 med-indication-project/
 ├── drug-service-py/        # Python microservice for parsing, mapping, and ingestion
 ├── api-gateway-node/       # NestJS backend API with auth, roles, and Mongo integration
-├── web-frontend/
 ├── docker-compose.yml 
 └── README.md
 ```
@@ -20,7 +19,6 @@ med-indication-project/
 |------------------|----------|----------------------------------------------------------|
 | `med-service-py` | Python   | Parse drug labels, map indications, extract eligibility  |
 | `api-gateway-node` | Node.js | API access, authentication, RBAC, CRUD on mappings      |
-| `web-frontend`     | React   | Frontend for drug search, program visualization (optional) |
 
 ## Planned Features
 - [x] Scrape or parse DailyMed drug labels for Dupixent. Extract relevant sections describing indications.

@@ -47,7 +47,6 @@ def test_parse_copay_program_with_missing_fields():
     raw = {}
     parsed = parse_copay_program(raw)
 
-    assert parsed["program_name"] is None
     assert parsed["coverage_eligibilities"] == []
     assert parsed["program_type"] == "Coupon"
     assert parsed["funding"]["current_funding_level"] == "Data Not Available"

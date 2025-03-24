@@ -2,11 +2,13 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Program } from './schemas/program.schema';
+import { lastValueFrom } from 'rxjs';
+import { HttpService } from '@nestjs/axios';
 
 @Injectable()
 export class ProgramsService {
   constructor(
-    @InjectModel(Program.name) private programModel: Model<Program>,
+    @InjectModel(Program.name) private programModel: Model<Program>, private readonly httpService: HttpService
   ) {}
 
   async findAll(): Promise<Program[]> {
@@ -49,4 +51,12 @@ export class ProgramsService {
     const result = await this.programModel.findByIdAndDelete(id).exec();
     if (!result) throw new NotFoundException(`Program with id ${id} not found`);
   }
+
+  
+  async parseProgram(raw: any) {
+    const url = 'http://med-service-py:8000/parse';
+    const response = await lastValueFrom(this.httpService.post(url, raw));
+    return response.data;
+  }
+
 }

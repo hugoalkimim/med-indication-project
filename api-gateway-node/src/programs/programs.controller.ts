@@ -65,4 +65,14 @@ export class ProgramsController {
       throw new NotFoundException(`Program with id ${id} not found`);
     }
   }
+
+  @Post('parse')
+  @Roles('admin')
+  async parseProgram(@Body() raw: any) {
+    try {
+      await this.programsService.parseProgram(raw);
+    } catch (error) {
+      throw new BadRequestException('Failed to parse programs');
+    }
+  }
 }

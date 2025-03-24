@@ -1,8 +1,10 @@
-bs4===0.0.2
+beautifulsoup4===4.13.3
 requests==2.32.3
 pymongo==4.11.3
 dotenv==0.9.9
 openai==1.68.2
+fastapi==0.115.12
+uvicorn
 
 # Dev:
 pytest==8.3.5

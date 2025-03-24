@@ -62,7 +62,7 @@ def parse_copay_program(raw: dict) -> dict:
     program_details_text = raw.get("ProgramDetails", "")
 
     return {
-        "program_name": raw.get("ProgramName"),
+        "program_name": raw.get("ProgramName", ""),
         "coverage_eligibilities": raw.get("CoverageEligibilities", []),
         "program_type": raw.get("AssistanceType", "Coupon"),
         "requirements": extract_list_with_gpt(eligibility_text, "requirements"),

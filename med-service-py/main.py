@@ -22,6 +22,7 @@ if __name__ == "__main__":
     print(f"Loaded {len(icd10_codes)} ICD-10 codes")
 
     med_name = "Dupixent"
+    # med_name = "Minoxidil"
     med_page_url = get_med_page_url(med_name)
     indications = extract_indications_section(med_page_url)
     print(f"INDICATIONS AND USAGE for {med_name}:\n\n{indications}")
@@ -29,11 +30,11 @@ if __name__ == "__main__":
     conditions = extract_conditions_with_gpt(indications)
     print(f"Extracted conditions: {conditions}")
 
-    mappings = map_conditions_to_icd10(conditions, icd10_codes)
+    mappings = map_conditions_to_icd10(conditions, icd10_codes, 0.7)
     mappings = enrich_with_description(mappings, icd10_codes)
 
     document = {
-        "drug": med_name.lower(),
+        "medication": med_name.lower(),
         "indications": [
             { "condition": m["condition"], "icd10": m["icd10"] }
             for m in mappings

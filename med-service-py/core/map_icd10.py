@@ -46,16 +46,23 @@ def map_conditions_to_icd10(
         for entry in icd10_codes:
             description = entry["description"].lower()
             score = difflib.SequenceMatcher(None, condition.lower(), description).ratio()
+            
+            if condition.lower() in description or description in condition.lower():
+                score += 0.2
 
             if score > best_score:
                 best_score = score
                 best_match = entry
-        # print(f"Best match: {best_match}, score: {best_score}")
+        
         if best_match and best_score >= similarity_threshold:
             mappings.append({
                 "condition": condition,
                 "icd10": best_match["code"],
-                "description": best_match["description"]
+            })
+        else:
+            mappings.append({
+                "condition": condition,
+                "icd10": "Not Found",
             })
 
     return mappings

@@ -21,6 +21,7 @@ def extract_conditions_with_gpt(indication_text: str) -> list:
     Return a comma-separated list of diseases this drug treats.
     Use standard medical terms (e.g. use 'hypertension' instead of 'high blood pressure').
     Do NOT include duplicates or symptoms.
+    Do NOT include any information that is not a medical condition. If there are no conditions, return ''.
     """
 
     response = client.responses.create(
@@ -31,4 +32,5 @@ def extract_conditions_with_gpt(indication_text: str) -> list:
 
     content = response.output_text
     conditions = content.split(",")
+    conditions = [condition.strip() for condition in conditions if condition.strip() != ""]
     return conditions

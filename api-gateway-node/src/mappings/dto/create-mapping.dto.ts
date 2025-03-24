@@ -1,12 +1,20 @@
-import { IsString } from 'class-validator';
+import { IsString, IsArray, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
 
-export class CreateMappingDto {
+class IndicationDto {
   @IsString()
   condition: string;
 
   @IsString()
   icd10: string;
+}
 
+export class CreateMappingDto {
   @IsString()
-  description: string;
+  medication: string;
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => IndicationDto)
+  indications: IndicationDto[];
 }

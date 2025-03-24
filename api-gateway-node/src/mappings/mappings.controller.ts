@@ -55,4 +55,10 @@ export class MappingsController {
       throw new NotFoundException(`Mapping with id '${id}' not found`);
     }
   }
+
+  @Get('indications/:med_name')
+  async getIndications(@Param('med_name') medName: string) {
+    console.log('medName:', medName);
+    return this.mappingsService.extractIndications(medName);
+  }
 }

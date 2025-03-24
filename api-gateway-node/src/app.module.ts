@@ -10,6 +10,7 @@ import { ProgramsModule } from './programs/programs.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { CacheModule } from '@nestjs/cache-manager';
 import { APP_GUARD } from '@nestjs/core';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [

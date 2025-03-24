@@ -1,50 +1,30 @@
-from db.mongo_client import insert_mapping, insert_program
+from fastapi import FastAPI
+from pydantic import BaseModel
 from core.map_icd10 import load_icd10_from_txt, map_conditions_to_icd10
-from core.parse_eligibility import parse_copay_program
 from core.extract_indications import get_med_page_url, extract_indications_section
-from core.ai_condition_extraction import extract_conditions_with_gpt
-from typing import List, Dict
-import json
 from core.parse_eligibility import parse_copay_program
 
-def enrich_with_description(mappings: List[Dict[str, str]], icd10_codes: List[Dict[str, str]]) -> List[Dict[str, str]]:
-    """Add ICD-10 descriptions to the mapped conditions."""
-    lookup = {entry["code"]: entry["description"] for entry in icd10_codes}
-    for mapping in mappings:
-        raw_code = mapping["icd10"].replace(".", "")
-        mapping["description"] = lookup.get(raw_code, "Not Found")
-    return mappings
+app = FastAPI()
 
+class MappingRequest(BaseModel):
+    conditions: list[str]
 
-if __name__ == "__main__":
-    with open("data/dupixent_sample.json") as f:
-        program = json.load(f)
-        result = parse_copay_program(program)
-        print(f"Inserting combined document:\n{json.dumps(result, indent=2)}")
+@app.post("/map")
+def map_conditions(request: MappingRequest):
+    icd10 = load_icd10_from_txt("data/icd10cm-codes-April-2025.txt")
+    mappings = map_conditions_to_icd10(request.conditions, icd10)
+    return {"mappings": mappings}
+
+@app.get("/indications/{med_name}")
+def extract_indications(med_name: str):
+    med_url = get_med_page_url(med_name)
+    indications = extract_indications_section(med_url)
+    return {"indications": indications}
+
+@app.post("/parse")
+def parse_program(raw: dict):
+    parsed = parse_copay_program(raw)
+    print(f"parsed: {parsed}")
+    return parsed
     
-    print("Loading ICD-10 codes...")
-    icd10_codes = load_icd10_from_txt("./data/icd10cm-codes-April-2025.txt")
-    print(f"Loaded {len(icd10_codes)} ICD-10 codes")
 
-    med_name = "Dupixent"
-    # med_name = "Minoxidil"
-    med_page_url = get_med_page_url(med_name)
-    indications = extract_indications_section(med_page_url)
-    print(f"INDICATIONS AND USAGE for {med_name}:\n\n{indications}")
-
-    conditions = extract_conditions_with_gpt(indications)
-    print(f"Extracted conditions: {conditions}")
-
-    mappings = map_conditions_to_icd10(conditions, icd10_codes, 0.7)
-    mappings = enrich_with_description(mappings, icd10_codes)
-
-    document = {
-        "medication": med_name.lower(),
-        "indications": [
-            { "condition": m["condition"], "icd10": m["icd10"] }
-            for m in mappings
-        ]
-    }
-
-    print(f"Inserting combined document:\n{json.dumps(document, indent=2)}")
-    insert_mapping(document)

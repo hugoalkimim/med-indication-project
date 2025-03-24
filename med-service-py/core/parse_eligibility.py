@@ -42,8 +42,3 @@ def parse_copay_program(raw: dict) -> dict:
             }
         ],
     }
-    
-if __name__ == "__main__":
-    with open("../data/dupixent_sample.json") as f:
-        raw = json.load(f)
-        print(json.dumps(parse_copay_program(raw), indent=2))

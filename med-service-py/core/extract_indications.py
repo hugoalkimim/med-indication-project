@@ -43,14 +43,3 @@ def extract_indications_section(med_url: str) -> str:
             return content_div.get_text(separator='\n', strip=True)
 
     return "INDICATIONS AND USAGE section not found"
-
-
-# med_name = "Dupixent"
-med_name = "minoxidil"
-
-try:
-    med_page_url = get_med_page_url(med_name)
-    indications = extract_indications_section(med_page_url)
-    print(f"INDICATIONS AND USAGE for {med_name}:\n\n{indications}")
-except Exception as e:
-    print(f"Error: {e}")

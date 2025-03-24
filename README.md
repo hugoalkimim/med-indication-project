@@ -1,5 +1,8 @@
 # Med Indication Project
 
+## Postman Workspace
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://www.postman.com/hugoalkimimdev/med-indication-project/collection/797qg5s/med-project)
+
 ## Project Structure (Monorepo)
 
 ```
@@ -24,7 +27,7 @@ med-indication-project/
 - [x] Parse the MyWay Copay Card. Extract structured information. Infer missing details using rule-based transformations or generative AI. Standardize the format according to the example output included in this
 document
 - [x] Map extracted indications to ICD-10 codes using an open-source dataset.
-- [ ] Handle edge cases like: synonyms, drugs with multiple indications, and unmappable conditions.
+- [x] Handle edge cases like: synonyms, drugs with multiple indications, and unmappable conditions.
 - [ ] Use generative AI to parse and summarize the EligibilityDetails text field into structured
 requirements
 - [x] Convert free-text eligibility conditions into structured JSON key-value pairs.
@@ -33,7 +36,7 @@ requirements
 - [x] Implement CRUD operations: Create, read, update, and delete drug-indication mappings.
 - [x] Users should be able to register and log in
 - [x] Implement role-based access control.
-- [ ] Include Swagger or Postman workspace for API testing
+- [x] Include Swagger or Postman workspace for API testing
 - [ ] Ensure consistent data types (e.g., true/false, numbers as strings).
 - [ ] Implement validation rules for missing or ambiguous data.
 - [x] Provide an endpoint (/programs/<program_id>) returning structured JSON.

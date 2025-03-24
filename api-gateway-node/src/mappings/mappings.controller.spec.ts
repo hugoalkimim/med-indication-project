@@ -9,11 +9,14 @@ describe('MappingsController', () => {
   let service: MappingsService;
 
   const mockMapping = {
-    condition: 'Hypertension',
-    icd10: 'I10',
-    description: 'Essential (primary) hypertension',
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    medication: 'Metformin',
+    indications: [
+      {
+        condition: 'Diabetes',
+        icd10: 'E11',
+        description: 'Type 2 diabetes mellitus',
+      },
+    ],
   };
 
   const serviceMock = {
@@ -54,11 +57,13 @@ describe('MappingsController', () => {
     });
 
     it('should throw error if condition is not found', async () => {
-      jest.spyOn(service, 'findByCondition').mockRejectedValueOnce(
-        new NotFoundException('Mapping not found'),
-      );
+      jest
+        .spyOn(service, 'findByCondition')
+        .mockRejectedValueOnce(new NotFoundException('Mapping not found'));
 
-      await expect(controller.findByCondition('Invalid')).rejects.toThrow(NotFoundException);
+      await expect(controller.findByCondition('Invalid')).rejects.toThrow(
+        NotFoundException,
+      );
     });
   });
 
@@ -72,9 +77,15 @@ describe('MappingsController', () => {
 
   describe('update', () => {
     it('should update a mapping', async () => {
-      const result = await controller.update('mockId', mockMapping);
+      const result = await controller.update('medication', {
+        medication: 'test',
+        indications: mockMapping.indications,
+      });
       expect(result).toEqual(mockMapping);
-      expect(service.update).toHaveBeenCalledWith('mockId', mockMapping);
+      expect(service.update).toHaveBeenCalledWith('medication', {
+        medication: 'test',
+        indications: mockMapping.indications,
+      });
     });
   });
 

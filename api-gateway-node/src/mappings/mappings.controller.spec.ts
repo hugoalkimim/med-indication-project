@@ -9,14 +9,9 @@ describe('MappingsController', () => {
   let service: MappingsService;
 
   const mockMapping = {
-    _id: 'mockId',
-    indications: [
-      {
-        condition: 'Diabetes',
-        icd10: 'E11',
-        description: 'Type 2 diabetes mellitus',
-      },
-    ],
+    condition: 'Hypertension',
+    icd10: 'I10',
+    description: 'Essential (primary) hypertension',
     createdAt: new Date(),
     updatedAt: new Date(),
   };
@@ -69,17 +64,17 @@ describe('MappingsController', () => {
 
   describe('create', () => {
     it('should create a new mapping', async () => {
-      const result = await controller.create({ indications: mockMapping.indications });
+      const result = await controller.create(mockMapping);
       expect(result).toEqual(mockMapping);
-      expect(service.create).toHaveBeenCalledWith({ indications: mockMapping.indications });
+      expect(service.create).toHaveBeenCalledWith(mockMapping);
     });
   });
 
   describe('update', () => {
     it('should update a mapping', async () => {
-      const result = await controller.update('mockId', { indications: mockMapping.indications });
+      const result = await controller.update('mockId', mockMapping);
       expect(result).toEqual(mockMapping);
-      expect(service.update).toHaveBeenCalledWith('mockId', { indications: mockMapping.indications });
+      expect(service.update).toHaveBeenCalledWith('mockId', mockMapping);
     });
   });
 

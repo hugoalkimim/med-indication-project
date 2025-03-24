@@ -6,7 +6,6 @@ import { ThrottlerGuard } from '@nestjs/throttler';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.useGlobalGuards(app.get(ThrottlerGuard));
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,

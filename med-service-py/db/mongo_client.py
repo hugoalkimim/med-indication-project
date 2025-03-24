@@ -9,6 +9,7 @@ client = MongoClient(MONGO_URI)
 db = client[MONGO_DB]
 
 med_mappings = db["mappings"]
+copay_programs = db["programs"]
 
 def insert_mapping(document: dict):
     """
@@ -16,3 +17,10 @@ def insert_mapping(document: dict):
     """
     med_mappings.insert_one(document)
     print(f"✅ Inserted mapping for: {document.get('drug')}")
+    
+def insert_program(document: dict):
+    """
+    Inserts a new copay program document into MongoDB.
+    """
+    copay_programs.insert_one(document)
+    print(f"✅ Inserted copay program for: {document.get('program_name')}")

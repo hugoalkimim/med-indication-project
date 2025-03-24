@@ -40,7 +40,7 @@ requirements
 - [x] Supports querying program details dynamically.
 - [x] Use a database (SQL or NoSQL) to store: Drug-indication mappings and User authentication data
 - [ ] Keep business rules independent of the API and data layers.
-- [ ] Implement validation logic for incoming data.
+- [x] Implement validation logic for incoming data.
 
 ##  Extra Features
 - [ ] AI Extraction Improvement: Use an LLM (GPT, Claude, etc.) to extract more nuanced eligibility criteria. For example, detect age limits, geographic restrictions, or insurance conditions from free-text fields.

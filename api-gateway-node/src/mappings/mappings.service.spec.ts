@@ -10,13 +10,9 @@ describe('MappingsService', () => {
 
   const mockMapping = {
     _id: 'mockId',
-    indications: [
-      {
-        condition: 'Hypertension',
-        icd10: 'I10',
-        description: 'Essential (primary) hypertension',
-      },
-    ],
+    condition: 'Hypertension',
+    icd10: 'I10',
+    description: 'Essential (primary) hypertension',
     createdAt: new Date(),
     updatedAt: new Date(),
   };
@@ -86,7 +82,7 @@ describe('MappingsService', () => {
 
       service = new MappingsService(createMock as any);
 
-      const result = await service.create({ indications: mockMapping.indications });
+      const result = await service.create(mockMapping);
       expect(result).toEqual(mockMapping);
       expect(saveMock).toHaveBeenCalled();
     });
@@ -98,7 +94,7 @@ describe('MappingsService', () => {
         exec: jest.fn().mockResolvedValueOnce(mockMapping),
       });
 
-      const result = await service.update('mockId', { indications: mockMapping.indications });
+      const result = await service.update('mockId', mockMapping);
       expect(result).toEqual(mockMapping);
     });
 

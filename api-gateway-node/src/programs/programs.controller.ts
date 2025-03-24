@@ -1,10 +1,11 @@
-
-import { Controller, Get, Post, Put, Delete, Param, Body, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, Query, UseGuards, NotFoundException, BadRequestException } from '@nestjs/common';
 import { ProgramsService } from './programs.service';
 import { Program } from './schemas/program.schema';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
+import { CreateProgramDto } from './dto/create-program.dto';
+import { UpdateProgramDto } from './dto/update-program.dto';
 
 @Controller('programs')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -13,37 +14,55 @@ export class ProgramsController {
 
   @Get()
   @Roles('user', 'reviewer', 'admin')
-  findAll(): Promise<Program[]> {
+  async findAll(): Promise<Program[]> {
     return this.programsService.findAll();
   }
-  
+
   @Get('search')
   @Roles('user', 'reviewer', 'admin')
-  search(@Query() query: any) {
-    return this.programsService.search(query);
+  async search(@Query() query: any): Promise<Program[]> {
+    try {
+      return await this.programsService.search(query);
+    } catch (error) {
+      throw new BadRequestException('Invalid search query');
+    }
   }
 
   @Get(':id')
   @Roles('user', 'reviewer', 'admin')
-  findById(@Param('id') id: string): Promise<Program> {
-    return this.programsService.findById(id);
+  async findById(@Param('id') id: string): Promise<Program> {
+    const program = await this.programsService.findById(id);
+    if (!program) throw new NotFoundException(`Program with id ${id} not found`);
+    return program;
   }
 
   @Post()
   @Roles('admin')
-  create(@Body() data: Partial<Program>): Promise<Program> {
-    return this.programsService.create(data);
+  async create(@Body() data: CreateProgramDto): Promise<Program> {
+    try {
+      return await this.programsService.create(data);
+    } catch (error) {
+      throw new BadRequestException('Failed to create program');
+    }
   }
 
   @Put(':id')
   @Roles('admin')
-  update(@Param('id') id: string, @Body() update: Partial<Program>): Promise<Program> {
-    return this.programsService.update(id, update);
+  async update(@Param('id') id: string, @Body() update: UpdateProgramDto): Promise<Program> {
+    try {
+      return await this.programsService.update(id, update);
+    } catch (error) {
+      throw new NotFoundException(`Program with id ${id} not found`);
+    }
   }
 
   @Delete(':id')
   @Roles('admin')
-  delete(@Param('id') id: string): Promise<void> {
-    return this.programsService.delete(id);
+  async delete(@Param('id') id: string): Promise<void> {
+    try {
+      await this.programsService.delete(id);
+    } catch (error) {
+      throw new NotFoundException(`Program with id ${id} not found`);
+    }
   }
 }

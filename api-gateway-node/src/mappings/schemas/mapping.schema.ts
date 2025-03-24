@@ -3,14 +3,14 @@ import { Document } from 'mongoose';
 
 @Schema({ timestamps: true })
 export class Mapping extends Document {
-  @Prop([
-    {
-      condition: { type: String, required: true },
-      icd10: { type: String, required: true },
-      description: { type: String },
-    },
-  ])
-  indications: { condition: string; icd10: string; description?: string }[];
+  @Prop({ required: true })
+  condition: string;
+
+  @Prop({ required: true })
+  icd10: string;
+
+  @Prop()
+  description?: string;
 }
 
 export const MappingSchema = SchemaFactory.createForClass(Mapping);

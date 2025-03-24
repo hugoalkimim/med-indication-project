@@ -1,5 +1,8 @@
 # Med Indication Project
 
+## Postman Workspace
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://www.postman.com/hugoalkimimdev/med-indication-project/collection/797qg5s/med-project)
+
 ## Project Structure (Monorepo)
 
 ```
@@ -33,7 +36,7 @@ requirements
 - [x] Implement CRUD operations: Create, read, update, and delete drug-indication mappings.
 - [x] Users should be able to register and log in
 - [x] Implement role-based access control.
-- [ ] Include Swagger or Postman workspace for API testing
+- [x] Include Swagger or Postman workspace for API testing
 - [ ] Ensure consistent data types (e.g., true/false, numbers as strings).
 - [ ] Implement validation rules for missing or ambiguous data.
 - [x] Provide an endpoint (/programs/<program_id>) returning structured JSON.

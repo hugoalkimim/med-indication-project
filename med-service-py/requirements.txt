@@ -1,6 +1,9 @@
 bs4
 requests==2.32.3
 pymongo==4.11.3
+coverage==1.68.2
+dotenv==0.9.9
+openai==1.68.2
 
 # Dev:
 pytest==8.3.5

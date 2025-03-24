@@ -1,2 +1,8 @@
-requests
 bs4
+requests==2.32.3
+pymongo==4.11.3
+
+# Dev:
+pytest==8.3.5
+pytest-cov==6.0.0
+coverage==7.7.1

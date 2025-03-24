@@ -1,7 +1,6 @@
-bs4
+bs4===0.0.2
 requests==2.32.3
 pymongo==4.11.3
-coverage==1.68.2
 dotenv==0.9.9
 openai==1.68.2
 

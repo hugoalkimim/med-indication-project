@@ -5,7 +5,7 @@ from core.extract_indications import get_med_page_url, extract_indications_secti
 from core.ai_condition_extraction import extract_conditions_with_gpt
 from typing import List, Dict
 import json
-
+from core.parse_eligibility import parse_copay_program
 
 def enrich_with_description(mappings: List[Dict[str, str]], icd10_codes: List[Dict[str, str]]) -> List[Dict[str, str]]:
     """Add ICD-10 descriptions to the mapped conditions."""
@@ -17,6 +17,11 @@ def enrich_with_description(mappings: List[Dict[str, str]], icd10_codes: List[Di
 
 
 if __name__ == "__main__":
+    with open("data/dupixent_sample.json") as f:
+        program = json.load(f)
+        result = parse_copay_program(program)
+        print(f"Inserting combined document:\n{json.dumps(result, indent=2)}")
+    
     print("Loading ICD-10 codes...")
     icd10_codes = load_icd10_from_txt("./data/icd10cm-codes-April-2025.txt")
     print(f"Loaded {len(icd10_codes)} ICD-10 codes")

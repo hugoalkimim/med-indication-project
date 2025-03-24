@@ -15,9 +15,9 @@ services:
       - ./med-service-py:/app
     depends_on:
       - mongo
-    command: ["python", "-u", "cli/run_ingestion.py"]
+    # command: ["python", "-u", "main.py"]
     environment:
-      - MONGO_URI=mongodb://mongo:27017
+      - MONGO_URI=mongodb://mongo:27017/med-indications
     restart: on-failure
 
   api-gateway-node:
@@ -29,9 +29,9 @@ services:
     depends_on:
       - mongo
     ports:
-      - "4000:4000"
+      - "3000:3000"
     environment:
-      - MONGO_URI=mongodb://mongo:27017
+      - MONGO_URI=mongodb://mongo:27017/med-indications
       - JWT_SECRET=supersecretkey
       - NODE_ENV=development
     command: ["yarn", "start:dev"]

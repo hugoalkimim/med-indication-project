@@ -18,7 +18,7 @@ def test_map_conditions_to_icd10_exact_match():
     icd10 = [{"code": "A123", "description": "asthma"}]
     conditions = ["asthma"]
     result = map_conditions_to_icd10(conditions, icd10)
-    assert result == [{"condition": "asthma", "icd10": "A123", "description": "asthma"}]
+    assert result == [{'condition': 'asthma', 'icd10': 'A123'}]
 
 
 @pytest.mark.map_icd10
@@ -34,17 +34,18 @@ def test_map_conditions_to_icd10_fuzzy_match():
     conditions = ["asthmatic", "diabetic", "sinus"]
     result = map_conditions_to_icd10(conditions, icd10, similarity_threshold=0.5)
 
-    assert {'condition': 'asthmatic', 'icd10': 'Q062', 'description': 'Diastematomyelia'} in result
-    assert {'condition': 'diabetic', 'icd10': 'R7303', 'description': 'Prediabetes'} in result
-    assert {'condition': 'sinus', 'icd10': 'H5703', 'description': 'Miosis'} in result
+    assert {'condition': 'asthmatic', 'icd10': 'Q062'} in result
+    assert {'condition': 'diabetic', 'icd10': 'R7303'} in result
+    assert {'condition': 'sinus', 'icd10': 'H5703'} in result
 
 
 @pytest.mark.map_icd10
 def test_map_conditions_to_icd10_no_match_below_threshold():
     """
-    Skips conditions that do not meet the minimum similarity threshold."""
+    Sets ICD-10 to 'Not Found' if no match is found above the similarity threshold.
+    """
     icd10 = [{"code": "Z999", "description": "random unrelated condition that should not match"}]
     conditions = ["completely different term"]
     result = map_conditions_to_icd10(conditions, icd10, similarity_threshold=0.9)
-    assert result == []
+    assert result == [{'condition': 'completely different term', 'icd10': 'Not Found'}]
     

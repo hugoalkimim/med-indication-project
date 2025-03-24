@@ -28,10 +28,10 @@ document
 - [ ] Use generative AI to parse and summarize the EligibilityDetails text field into structured
 requirements
 - [x] Convert free-text eligibility conditions into structured JSON key-value pairs.
-- [ ] Store structured drug-indication mappings in a database or NoSQL store.
-- [ ] Make mappings queryable via an API.
-- [ ] Implement CRUD operations: Create, read, update, and delete drug-indication mappings.
-- [ ] Users should be able to register and log in
+- [x] Store structured drug-indication mappings in a database or NoSQL store.
+- [x] Make mappings queryable via an API.
+- [x] Implement CRUD operations: Create, read, update, and delete drug-indication mappings.
+- [x] Users should be able to register and log in
 - [ ] Implement role-based access control.
 - [ ] Include Swagger or Postman workspace for API testing
 - [ ] Ensure consistent data types (e.g., true/false, numbers as strings).

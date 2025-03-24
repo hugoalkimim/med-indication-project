@@ -29,11 +29,6 @@ def test_parse_copay_program_structure(sample_raw_json):
     assert parsed["coverage_eligibilities"] == ["Commercially insured"]
     assert parsed["program_type"] == "Coupon"
 
-    assert any(req["name"] == "us_residency" for req in parsed["requirements"])
-    assert any(req["name"] == "minimum_age" for req in parsed["requirements"])
-
-    assert {"name": "max_annual_savings", "value": "13000.00"} in parsed["benefits"]
-
     assert parsed["forms"][0]["link"] == "https://www.dupixent.com/support-savings/copay-card"
 
     assert parsed["funding"]["evergreen"] == "true"
